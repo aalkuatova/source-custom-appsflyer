@@ -1,0 +1,11 @@
+{
+  "organic_in_app_events": {
+    "event_time": "2050-01-01T00:00:00+00:00"
+  },
+  "organic_installs": {
+    "install_time": "2050-01-01T00:00:00+00:00"
+  },
+  "organic_uninstall_events": {
+    "event_time": "2050-01-01T00:00:00+00:00"
+  }
+}
