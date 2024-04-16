@@ -21,7 +21,7 @@ class CustomCSVExtractor(RecordExtractor):
             raise ValueError("Response content is not bytes.")
         
         records = []
-
+        print('status_code', response.status_code)
         csv_str = response.content.decode('utf-8')
     
         # Use StringIO to create a file-like object for CSV module

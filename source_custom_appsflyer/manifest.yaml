@@ -7,7 +7,6 @@ definitions:
       type: CustomRecordExtractor
       class_name: source_custom_appsflyer.custom_csv_extractor.CustomCSVExtractor
 
-
   requester:
     type: HttpRequester
     url_base: "https://hq1.appsflyer.com/api/"
@@ -16,12 +15,24 @@ definitions:
       type: BearerAuthenticator
       api_token: "{{ config['access_token'] }}"
     request_parameters:
-      app_id: "{{ config['app_id'] }}"
       from: "{{ config['from'] }}"
-      to: "{{ config['to'] }}"
+      to: "{{ now_utc().strftime('%Y-%m-%d') }}"
       timezone: "{{ config['timezone'] }}"
     request_headers:
       accept: "text/csv"
+
+  incremental_sync:
+    type: DatetimeBasedCursor
+    datetime_format: "%Y-%m-%d"
+    cursor_field: "{{ parameters['cursor_field'] }}"
+    start_datetime:
+      type: MinMaxDatetime
+      datetime: "{{ config['from'] }}"
+      datetime_format: "%Y-%m-%d"
+    end_datetime:
+      type: MinMaxDatetime
+      datetime: "{{ now_utc().strftime('%Y-%m-%dT%H:%M:%SZ') }}"
+      datetime_format: "%Y-%m-%dT%H:%M:%SZ"
 
   retriever:
     type: SimpleRetriever
@@ -34,6 +45,8 @@ definitions:
 
   base_stream:
     type: DeclarativeStream
+    incremental_sync:
+      $ref: "#/definitions/incremental_sync"
     retriever:
       $ref: "#/definitions/retriever"
 
@@ -42,6 +55,7 @@ definitions:
     name: "organic_installs"
     primary_key: "install_time"
     $parameters:
+      cursor_field: "install_time"
       path: "raw-data/export/app/{{ config['app_id'] }}/organic_installs_report/v5"
 
   organic_in_app_events_stream:
@@ -49,6 +63,7 @@ definitions:
     name: "organic_in_app_events"
     primary_key: "event_time"
     $parameters:
+      cursor_field: "event_time"
       path: "raw-data/export/app/{{ config['app_id'] }}/organic_in_app_events_report/v5"
   
   organic_uninstall_events_stream:
@@ -56,6 +71,7 @@ definitions:
     name: "organic_uninstall_events"
     primary_key: "event_time"
     $parameters:
+      cursor_field: "event_time"
       path: "raw-data/export/app/{{ config['app_id'] }}/organic_uninstall_events_report/v5"
 
 

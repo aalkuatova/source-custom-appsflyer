@@ -1,6 +1,6 @@
 {
   "app_id": "app.yourapp.android",
-  "api_token": "wrong_secret",
-  "start_date": "2021-09-27 20:00:00",
+  "access_token": "wrong_token",
+  "from": "2024-04-11",
   "timezone": "Asia/Jakarta"
 }

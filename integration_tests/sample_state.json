@@ -1,11 +1,11 @@
 {
-  "oragnic_in_app_events": {
-    "event_time": "2021-09-27T20:36:33+07:00"
-  },
   "organic_installs": {
     "install_time": "2021-09-27T20:36:06+07:00"
   },
   "organic_uninstall_events": {
+    "event_time": "2021-09-27T20:36:33+07:00"
+  },
+  "oragnic_in_app_events": {
     "event_time": "2021-09-27T20:36:33+07:00"
   }
 }

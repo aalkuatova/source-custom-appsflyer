@@ -2,6 +2,6 @@
 !Dockerfile
 !Dockerfile.test
 !main.py
-!source_appsflyer
+!source_custom_appsflyer
 !setup.py
 !secrets
